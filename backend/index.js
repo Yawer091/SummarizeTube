@@ -3,18 +3,13 @@ const express = require("express");
 const axios = require("axios");
 const path = require("path");
 const { OpenAI } = require("openai");
-const { connection } = require('./config/db');
-const {userRouter} =require('./routes/user.router')
-const cookieParser = require('cookie-parser');
 
 const app = express();
 app.use(express.json());
-app.use(cookieParser());
-app.use('/users',userRouter)
 
 const API_KEY = process.env.YOUTUBE_API_KEY;
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, 
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 // Fetching video transcripts
@@ -26,7 +21,7 @@ app.post("/fetchTranscript", async (req, res) => {
     );
     res.json(response.data);
   } catch (error) {
-    res.status(500).send("Error fetching transcript"); 
+    res.status(500).send("Error fetching transcript");
   }
 });
 
@@ -57,12 +52,4 @@ app.get("*", (req, res) => {
 });
 
 const PORT = process.env.PORT;
-app.listen(process.env.PORT, async() =>{
-  try{
-      console.log(`ser is running on http://localhost:${process.env.PORT}`);
-      await connection
-      console.log('connected to the databse')
-  }catch(err){
-      res.status(400).send({msg:"Internal Server Error",err})
-  }
-})
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
