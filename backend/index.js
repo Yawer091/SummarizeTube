@@ -26,7 +26,7 @@ app.post("/fetchTranscript", async (req, res) => {
     );
     res.json(response.data);
   } catch (error) {
-    res.status(500).send("Error fetching transcript");
+    res.status(500).send("Error fetching transcript"); 
   }
 });
 
